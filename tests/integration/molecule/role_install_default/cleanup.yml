@@ -1,0 +1,9 @@
+---
+- name: Cleanup
+  hosts: all
+  vars:
+    ansible_user: root
+  tasks:
+    - name: 'Unregister Container with RHSM'
+      community.general.redhat_subscription:
+        state: absent

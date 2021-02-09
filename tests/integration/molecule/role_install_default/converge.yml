@@ -1,0 +1,10 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Install alertmanager"
+      include_role:
+        name: cub_oit_pe.alertmanager.install
+      vars:
+        - version: '0.21.0'
+        - version_lock: true
