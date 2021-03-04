@@ -4,9 +4,9 @@ on:
     # Set the paths you wish to trigger the workflow here
   pull_request:
     paths:
-      - 'roles/install/**'
-      - '.github/workflows/integration-test-install.yml'
-      - 'tests/integration/molecule/role_install*/**'
+      - 'roles/configure/**'
+      - '.github/workflows/integration-test-configure.yml'
+      - 'tests/integration/molecule/role_configure*/**'
       - 'tests/integration/base.yml'
 jobs:
   molecule:
