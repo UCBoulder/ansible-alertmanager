@@ -1,0 +1,62 @@
+---
+name: "Test install Role in Collection"
+on:
+    # Set the paths you wish to trigger the workflow here
+  pull_request:
+    paths:
+      - 'roles/install/**'
+      - '.github/workflows/integration-test-install.yml'
+      - 'tests/integration/molecule/role_install*/**'
+      - 'tests/integration/base.yml'
+jobs:
+  molecule:
+    runs-on: ubuntu-20.04
+    env:
+      PY_COLORS: 1
+      ANSIBLE_FORCE_COLOR: 1
+    strategy:
+      fail-fast: false
+      matrix:
+        molecule_distro:
+          - distro: rhel8
+            # On Github we use the docker driver because podman on Ubuntu seems to have issues with systemd containers
+            molecule_driver: docker
+            image: registry.access.redhat.com/ubi8/ubi-init
+            command: /sbin/init
+        collection_scenario:
+          - role_install_default
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+        with:
+          # You will need to set a reasonable path here
+          path: ansible_collections/cub_oit_pe/alertmanager
+
+      - name: Set up Python 3.9.1
+        uses: actions/setup-python@v2
+        with:
+          # For speed try to use a version of python that is cached on Github's runners:
+          # https://github.com/actions/virtual-environments/blob/main/images/linux/Ubuntu2004-README.md#python
+          python-version: 3.9.1
+
+      - name: Install Package Dependencies
+        run: |
+          sudo apt install apt-transport-https ca-certificates curl software-properties-common
+          python -m pip install --upgrade pip
+          pip install ansible ansible-lint flake8 molecule molecule-docker yamllint
+
+      - name: Run Molecule Tests
+        env:
+          CONTAINER_RT: ${{ matrix.molecule_distro.molecule_driver }}
+          MOLECULE_COMMAND: ${{ matrix.molecule_distro.command }}
+          MOLECULE_DISTRO: ${{ matrix.molecule_distro.distro }}
+          MOLECULE_IMAGE: ${{ matrix.molecule_distro.image }}
+          RHSM_ACTIVATION_KEY: ${{ secrets.RHSM_ACTIVATION_KEY }}
+          RHSM_ORG_ID: ${{ secrets.RHSM_ORG_ID }}
+          RHSM_POOL_ID: ${{ secrets.RHSM_POOL_ID }}
+        run: >-
+          molecule --version &&
+          ansible --version &&
+          molecule --debug -c molecule/base.yml test -s ${{ matrix.collection_scenario }}
+        # Again ensure you have a reasonable location here.
+        working-directory: default

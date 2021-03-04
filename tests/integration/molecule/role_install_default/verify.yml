@@ -5,8 +5,6 @@
   hosts: all
   gather_facts: false
   tasks:
-  - name: Install Prometheus
-    package:
-      name: prometheus2
-      state: present
-    become: yes
+  - name: "Test Alertmanager is up on the Default Port"
+    ansible.builtin.wait_for:
+      port: 9094

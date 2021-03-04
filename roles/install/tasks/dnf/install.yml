@@ -1,10 +1,17 @@
 ---
-- name: "Install alertmanager"
+- name: "Install Alertmanager"
   ansible.builtin.package:
     name: alertmanager-{{ version }}
     state: present
+  when: version != 'latest'
 
-- name: "Version Lock the alertmanager Package"
+- name: "Install Latest Alertmanager"
+  ansible.builtin.package:
+    name: alertmanager
+    state: present
+  when: version == 'latest'
+
+- name: "Version Lock the Alertmanager Package"
   community.general.yum_versionlock:
     name: alertmanager
   when: version_lock

@@ -1,4 +1,6 @@
 ---
 # defaults file for install
-version: ''
+# The version of Alertmanager to install as a string, 'latest' means latest :).
+version: 'latest'
+# Should the alertmanager package be version locked by YUM/DNF?
 version_lock: false

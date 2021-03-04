@@ -7,4 +7,4 @@
         name: cub_oit_pe.alertmanager.install
       vars:
         - version: '0.21.0'
-        - version_lock: true
+        - version_lock: false

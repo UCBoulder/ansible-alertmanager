@@ -1,5 +1,5 @@
 ---
-- name: Add packagecloud.io/prometheus-rpm repo
+- name: "Add packagecloud.io/prometheus-rpm repo"
   ansible.builtin.yum_repository:
     name: prometheus-rpm
     description: Prometheus RPM repo

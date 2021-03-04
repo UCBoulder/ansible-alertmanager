@@ -1,0 +1,53 @@
+---
+# tasks file for configure
+
+- name: "Install Alertmanager"
+  include_role:
+    name: install
+
+- name: "Create Alertmanager Directories"
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: prometheus
+    group: prometheus
+    mode: 0755
+  with_items:
+    - "{{ alertmanager_config_dir }}"
+    - "{{ alertmanager_config_dir }}/templates"
+    - "{{ alertmanager_db_dir }}"
+    - "{{ alertmanager_amtool_config_dir }}"
+
+
+- name: "Copy Amtool Config"
+  template:
+    force: true
+    src: "{{ alertmanager_amtool_config_file }}"
+    dest: "{{ alertmanager_amtool_config_dir }}/config.yml"
+    owner: prometheus
+    group: prometheus
+    mode: 0644
+
+- name: "Copy Alertmanager Config"
+  template:
+    force: true
+    src: "{{ alertmanager_config_file }}"
+    dest: "{{ alertmanager_config_dir }}/alertmanager.yml"
+    owner: prometheus
+    group: prometheus
+    mode: 0644
+    validate: "amtool check-config %s"
+  notify:
+    - Restart Alertmanager
+
+- name: "Copy Alertmanager Template Files"
+  copy:
+    src: "{{ item }}"
+    dest: "{{ alertmanager_config_dir }}/templates/"
+    force: true
+    owner: prometheus
+    group: prometheus
+    mode: 0644
+  with_fileglob: "{{ alertmanager_template_files }}"
+  notify:
+    - Restart Alertmanager
