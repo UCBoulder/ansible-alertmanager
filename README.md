@@ -1,32 +1,27 @@
 # Ansible Collection - cub_oit_pe.alertmanager
 
-Large chunks of this were borrowed from the fine work done by the [cloudalchemy group](https://github.com/cloudalchemy/ansible-alertmanager), thanks! Their code uses the MIT license and where applicable I have differentiated their work from ours.
+Large chunks of this were borrowed from the fine work done by the [cloudalchemy group](https://github.com/cloudalchemy/ansible-alertmanager), thanks! Their code is licensed under an MIT style license and is copyright:
 
-This is a template for developing collections. This template is tightly bound to our specific workflow. As such it is designed to be used on Github with Github actions etc.
+    Copyright (c) 2017-2018 Pawel Krupa, Roman Demachkovych
 
-## Initial Repository Setup
-### Github Workflows
-Two workflows are provided by default:
-#### release.yml
-This action will do the steps required to push a release to Ansible Galaxy, this action is triggered on a push to the 'main' branch. As such if you are in the early stages of development and wish to push directly to main, you should investigate disabling actions, or work in a branch.
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
 
-This workflow expects `GALAXY_API_KEY` secret to be defined for the repository in Github, this is at current defined organization wide, however, because we do not pay for Github this secret is not available to private repositories.If you are developing using a private repository, make sure you define these secrets for the repository.
+    The above copyright notice and this permission notice shall be included in all
+    copies or substantial portions of the Software.
 
-#### test-default.yml
-This is a template to be used for performing integration and lint testing at the moment. The file is well commented and sections you need to adjust should be obvious. It is recommended that you change the name of this file ass appropriate for you collection and work from there.
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+    SOFTWARE.
 
-This workflow expects a few Github secrets to be defined:
-`RHSM_ACTIVATION_KEY`
-`RHSM_ORG_ID`
-`RHSM_POOL_ID`
-
-Currently these secrets are defined for our Github organization. However, because we do not pay for Github, these organization secrets are not available to private repositories. If you are developing using a private repository, make sure you define these secrets for the repository.
-
-### tests/integration/
-There is a default scenario defined in here with the majority of the molecule.yml defined in `tests/integration/basey.yml`. The default configuration is fairly sensible, however you will at a minimum have to modify the `converge.yml` and `verify.yml` files.
-
-## Creating New Roles in the Collection
-Please refer the [README](roles/README.md) for roles.
 
 ## Local Testing of the Collection
 ### Integration Testing
