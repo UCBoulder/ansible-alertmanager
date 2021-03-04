@@ -30,7 +30,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           # You will need to set a reasonable path here
-          path: default
+          path: ansible_collections/cub_oit_pe/alertmanager
 
       - name: Set up Python 3.9.1
         uses: actions/setup-python@v2
@@ -59,4 +59,4 @@ jobs:
           ansible --version &&
           molecule --debug -c molecule/base.yml test -s ${{ matrix.collection_scenario }}
         # Again ensure you have a reasonable location here.
-        working-directory: default
+       working-directory: tests/integration
