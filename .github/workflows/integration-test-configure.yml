@@ -57,6 +57,6 @@ jobs:
         run: >-
           molecule --version &&
           ansible --version &&
-          molecule --debug -c molecule/base.yml test -s ${{ matrix.collection_scenario }}
+          molecule --debug -c base.yml test -s ${{ matrix.collection_scenario }}
         # Again ensure you have a reasonable location here.
         working-directory: tests/integration
