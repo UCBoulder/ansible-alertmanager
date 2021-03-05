@@ -1,0 +1,10 @@
+---
+# tasks file for server
+
+- name: "Install Alertmanager"
+  include_role:
+    name: install
+
+- name: " Configure Alertmanager"
+  include_role:
+    name: configure
