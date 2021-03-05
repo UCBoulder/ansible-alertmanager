@@ -1,5 +1,5 @@
 ---
-name: "Test configure Role in Collection"
+name: "Test server Role in Collection"
 on:
     # Set the paths you wish to trigger the workflow here
   pull_request:
