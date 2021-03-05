@@ -1,0 +1,14 @@
+---
+
+- name: "Prepare Package Repositories"
+  include_tasks: repositories.yml
+
+
+- name: "Install Selected Packages"
+  include_tasks: packages.yml
+
+- name: "Start and Enable the Alertmanager Service"
+  ansible.builtin.service:
+    name: "alertmanager"
+    state: "started"
+    enabled: "yes"

@@ -1,0 +1,3 @@
+---
+- name: "Prepare Package Repositories"
+  include_tasks: "{{ ansible_pkg_mgr }}/prepare.yml"

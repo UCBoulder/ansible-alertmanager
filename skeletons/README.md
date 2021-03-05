@@ -1,0 +1,1 @@
+Skeleton files go here, this is not part of the official way to design collections in ansible, but it helps us avoid some cruft associated with the default `ansible-galaxy role init`.

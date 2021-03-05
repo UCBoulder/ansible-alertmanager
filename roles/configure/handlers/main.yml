@@ -1,0 +1,13 @@
+---
+# handlers file for configure
+- name: "Reload Alertmanager"
+  ansible.builtin.service:
+    name: "alertmanager"
+    state: "reloaded"
+
+- name: "Restart Alertmanager"
+  become: true
+  systemd:
+    daemon_reload: true
+    name: "alertmanager"
+    state: "restarted"
