@@ -25,6 +25,8 @@ jobs:
             command: /sbin/init
         collection_scenario:
           - role_install_default
+          - role_install_versionlock
+
     steps:
       - name: Check out code
         uses: actions/checkout@v2

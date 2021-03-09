@@ -1,0 +1,16 @@
+---
+# This is an example playbook to execute Ansible tests.
+
+- name: Verify
+  hosts: all
+  gather_facts: false
+  tasks:
+  - name: "Test Alertmanager is up on the Default Port"
+    ansible.builtin.wait_for:
+      port: 9094
+
+  - name: "Test the alertmanager package is versionlocked."
+    ansible.builtin.command:
+      cmd: 'yum versionlock list | grep alertmanager'
+      # command module watns if using raw yum versus ansible yum module, we silence this warning.
+      warn: false

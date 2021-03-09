@@ -1,0 +1,42 @@
+---
+- name: Prepare
+  hosts: all
+  vars:
+    ansible_user: root
+  tasks:
+    - name: Install sudo
+      ansible.builtin.package:
+        name: sudo
+        state: present
+
+    - name: Create molecule group
+      ansible.builtin.group:
+        name: molecule
+
+    - name: Create molecule user
+      ansible.builtin.user:
+        name: molecule
+        group: molecule
+
+    - name: Allow sudo for molecule user
+      ansible.builtin.copy:
+        dest: "/etc/sudoers.d/molecule"
+        mode: 0440
+        owner: root
+        group: root
+        content: |
+          molecule ALL=(ALL) NOPASSWD:ALL
+
+    - name: 'Register Container with RHSM if running in Docker'
+      community.general.redhat_subscription:
+        activationkey: "{{ lookup('env', 'RHSM_ACTIVATION_KEY') }}"
+        org_id: "{{ lookup('env', 'RHSM_ORG_ID') }}"
+        pool_ids: "{{ lookup('env', 'RHSM_POOL_ID') }}"
+      when: >
+        ansible_distribution == "RedHat" and
+        lookup('env', 'CONTAINER_RT') == "docker"
+
+    - name: 'Install versionlock package'
+      ansible.builtin.package:
+        name: 'python3-dnf-plugin-versionlock'
+        state: present

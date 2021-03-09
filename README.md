@@ -1,5 +1,20 @@
 # Ansible Collection - cub_oit_pe.alertmanager
 
+## Description:
+This collection installs and configures alertmanager, it is strongly recommended for anyone outside of the team developing this collection NOT to use it. Please instead look to [cloudalchemy's excellent role](https://github.com/cloudalchemy/ansible-alertmanager) for alertmanager.
+
+## Roles in Collection:
+There are currently three roles in the collection, however for your average end user you will interact with just one of them, cub_oit_pe.alertmanager.server, the other two are simply in place to provide clean seperation of duties that the server role requires.
+
+The roles are:
+- server: Installs and configures an alertmanager server (this is what most users should use).
+- install: Does the actual installation of alertmanager.
+- configure: Handles the configuration of alertmanager, hevily based on cloudachemy's work.
+
+## Documentation
+Documentation for the collection is held in the docs/sources/ directory and is also published as GitHub pages (WIP).
+
+## Licensing
 Large chunks of this were borrowed from the fine work done by the [cloudalchemy group](https://github.com/cloudalchemy/ansible-alertmanager), thanks! Their code is licensed under an MIT style license and is copyright:
 
     Copyright (c) 2017-2018 Pawel Krupa, Roman Demachkovych
@@ -21,7 +36,6 @@ Large chunks of this were borrowed from the fine work done by the [cloudalchemy 
     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
-
 
 ## Local Testing of the Collection
 ### Integration Testing
